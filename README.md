@@ -1,6 +1,8 @@
-# MHTML Converter
+# MHTML to HTML (Python)
 
-A Python package that converts MHTML files to HTML with automatic encoding detection, especially useful for Chinese, Japanese, and Korean content.
+A Python wrapper for the excellent [gonejack/mhtml-to-html](https://github.com/gonejack/mhtml-to-html) Go tool, adding automatic encoding detection for Chinese, Japanese, and Korean content.
+
+NOTE: This is 100% vibe coded, including all the effusive LLM slop below. It works and has tests, that's all I can say.
 
 ## Features
 
@@ -9,11 +11,12 @@ A Python package that converts MHTML files to HTML with automatic encoding detec
 - 🖥️ **Cross-Platform**: Works on Linux, macOS, and Windows (x64 & ARM64)
 - 🐍 **Simple Python API**: Clean interface with optional CLI
 - 📦 **Zero Dependencies**: Self-contained with embedded binaries
+- 🙏 **Built on Excellence**: Wraps the proven [mhtml-to-html](https://github.com/gonejack/mhtml-to-html) Go tool
 
 ## Installation
 
 ```bash
-pip install mhtml-converter
+pip install mhtml-to-html-py
 ```
 
 ## Quick Start
@@ -37,13 +40,13 @@ html_content = convert_mhtml("document.mht", encoding="gbk")
 
 ```bash
 # Convert single file
-mhtml-converter input.mht -o output.html
+mhtml-to-html-py input.mht -o output.html
 
 # Verbose mode to see encoding detection
-mhtml-converter input.mht -o output.html --verbose
+mhtml-to-html-py input.mht -o output.html --verbose
 
 # Convert multiple files
-mhtml-converter *.mht --output-dir converted/
+mhtml-to-html-py *.mht --output-dir converted/
 ```
 
 ## Why This Package?
@@ -65,7 +68,7 @@ Many MHTML files, especially those saved from Chinese, Japanese, or Korean websi
 
 ## Technical Details
 
-This package wraps a high-performance Go binary that handles the actual conversion. The Python layer provides a clean API and handles platform detection automatically.
+This package wraps the high-performance [mhtml-to-html](https://github.com/gonejack/mhtml-to-html) Go binary that handles the actual conversion. The Python layer provides a clean API, handles platform detection automatically, and adds enhanced encoding detection capabilities.
 
 ### Supported Platforms
 
@@ -76,6 +79,15 @@ This package wraps a high-performance Go binary that handles the actual conversi
 | macOS | Intel | ✅ |
 | macOS | Apple Silicon | ✅ |
 | Windows | x86_64 | ✅ |
+
+## Credits
+
+This project is a Python wrapper around the excellent [gonejack/mhtml-to-html](https://github.com/gonejack/mhtml-to-html) Go tool. All the heavy lifting for MHTML parsing and conversion is done by that project. We've added:
+
+- Python packaging and distribution
+- Cross-platform binary embedding
+- Enhanced encoding detection
+- Simplified Python API
 
 ## License
 
