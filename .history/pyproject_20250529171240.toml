@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mhtml-converter"
+version = "1.1.0"
+description = "Convert MHTML files to HTML with automatic encoding detection"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers", 
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Markup :: HTML",
+    "Topic :: Utilities",
+]
+keywords = ["mhtml", "html", "conversion", "encoding", "chinese", "gbk", "gb18030", "japanese", "korean"]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/yourusername/mhtml-converter"
+Repository = "https://github.com/yourusername/mhtml-converter"
+Issues = "https://github.com/yourusername/mhtml-converter/issues"
+
+[project.scripts]
+mhtml-converter = "mhtml_converter.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mhtml_converter"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"mhtml_converter/bin" = "mhtml_converter/bin"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/mhtml_converter",
+    "/README.md",
+    "/LICENSE",
+    "/go-cli",
+] 
