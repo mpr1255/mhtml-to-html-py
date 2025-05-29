@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mhtml-to-html-py"
-version = "1.1.0"
+version = "0.1.0"
 description = "Python wrapper for mhtml-to-html Go tool with automatic encoding detection"
 readme = "README.md"
 license = "MIT"
@@ -12,7 +12,7 @@ authors = [
     { name = "mpr1255", email = "mpr1255@users.noreply.github.com" }
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers", 
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
