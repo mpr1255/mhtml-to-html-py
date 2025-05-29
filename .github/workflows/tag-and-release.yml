@@ -1,0 +1,56 @@
+name: Auto Tag and Release
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'pyproject.toml' ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to tag (e.g., 1.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Get full history for proper tagging
+    
+    - name: Extract version from pyproject.toml
+      id: get_version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        else
+          VERSION=$(grep '^version = ' pyproject.toml | sed 's/version = "\(.*\)"/\1/')
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+    
+    - name: Check if tag already exists
+      id: check_tag
+      run: |
+        if git rev-parse "refs/tags/${{ steps.get_version.outputs.tag }}" >/dev/null 2>&1; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Create and push tag
+      if: steps.check_tag.outputs.exists == 'false'
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git tag -a "${{ steps.get_version.outputs.tag }}" -m "Release ${{ steps.get_version.outputs.tag }}"
+        git push origin "${{ steps.get_version.outputs.tag }}"
+    
+    - name: Tag already exists
+      if: steps.check_tag.outputs.exists == 'true'
+      run: |
+        echo "Tag ${{ steps.get_version.outputs.tag }} already exists, skipping..." 
